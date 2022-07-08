@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.SystemMessageMapper">
+
+    <insert id="insertNewSystemMessage" parameterType="systemMessage">
+        insert into system_message(send_time, sender_id, receiver_id, content, message_type, casual_word_id,
+                                   question_id)
+        values (#{sendTime}, #{senderId}, #{receiverId}, #{content}, #{messageType}, #{casualWordId}, #{questionId})
+    </insert>
+
+    <select id="getSystemMessageNumById" resultType="integer">
+        select count(*)
+        from system_message
+        where receiver_id = #{receiverId}
+    </select>
+
+    <select id="checkAddFriendSystemMessageExistById" resultType="boolean">
+        select exists(
+                       select id
+                       from system_message
+                       where sender_id = #{senderId}
+                         and receiver_id = #{receiverId}
+                         and message_type = 0
+                         and is_effective = true)
+    </select>
+
+    <select id="getSystemMessageByReceiverId" resultType="systemMessage">
+        select *
+        from system_message
+        where receiver_id = #{receiverId}
+        order by send_time desc limit #{pageIndex}, 10
+    </select>
+
+    <select id="getSystemMsgByMsgId" resultType="systemMessage">
+        select *
+        from system_message
+        where id = #{msgId}
+    </select>
+
+    <update id="makeSystemMessageInvalid" parameterType="integer">
+        update system_message
+        set is_effective = false
+        where id = #{id}
+    </update>
+
+    <delete id="delSystemMsgByMsgId">
+        delete
+        from system_message
+        where id = #{messageId}
+    </delete>
+
+    <delete id="delSystemMsgByCasualWordId">
+        delete
+        from system_message
+        where casual_word_id = #{casualWordId}
+    </delete>
+
+    <delete id="delSystemMsgByQuestionId">
+        delete
+        from system_message
+        where question_id = #{questionId}
+    </delete>
+
+</mapper>

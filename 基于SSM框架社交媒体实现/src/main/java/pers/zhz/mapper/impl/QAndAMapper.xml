@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.QAndAMapper">
+
+    <insert id="addQAndAQuestion" parameterType="qAndAQuestion" useGeneratedKeys="true" keyProperty="id">
+        insert into q_and_a_question (questioner_id, question_time, content)
+        values (#{questionerId}, #{questionTime}, #{content})
+    </insert>
+
+    <select id="getAllUserQuestionNum" resultType="integer">
+        select count(*)
+        from q_and_a_question
+    </select>
+
+    <select id="getAllUserQuestion" resultType="qAndAQuestion">
+        select id, questioner_id, question_time, content
+        from q_and_a_question
+        order by question_time desc limit #{pageIndex}, 20
+    </select><!--limit第一个参数表示数据行的起始位置，从0开始；第二个参数表示起始位置往后的-->
+
+    <select id="getUserQuestionNumByUserId" resultType="integer">
+        select count(*)
+        from q_and_a_question
+        where questioner_id = #{userId}
+    </select>
+
+    <select id="getUserQuestionsByUserId" resultType="qAndAQuestion">
+        select id, questioner_id, question_time, content
+        from q_and_a_question
+        where questioner_id = #{userId}
+        order by question_time desc limit #{pageIndex}, 20
+    </select>
+
+    <select id="getQuestionByContent" resultType="qAndAQuestion">
+        select id, questioner_id, question_time, content
+        from q_and_a_question
+        where content like "%"#{content}"%"
+        order by question_time
+    </select>
+
+    <select id="getQuestionerIdByQuestionId" resultType="integer">
+        select questioner_id
+        from q_and_a_question
+        where id = #{questionId}
+    </select>
+
+    <select id="getQuestionIdByAnswerId" resultType="integer">
+        select question_id
+        from q_and_a_answer
+        where id = #{answerId}
+    </select>
+
+    <insert id="addQAndAAnswer" parameterType="qAndAAnswer" useGeneratedKeys="true" keyProperty="id">
+        insert into q_and_a_answer(question_id, responder_id, response_time, content, reply_answer_id)
+        values (#{questionId}, #{responderId}, #{responseTime}, #{content}, #{replyAnswerId})
+    </insert>
+
+    <select id="getQuestionByQuestionId" resultType="qAndAQuestion">
+        select id, questioner_id, question_time, content
+        from q_and_a_question
+        where id = #{questionId}
+    </select>
+
+    <select id="getAnswersNumByQuestionId" resultType="integer">
+        select count(*)
+        from q_and_a_answer
+        where question_id = #{questionId}
+    </select>
+
+    <select id="getAnswersByQuestionId" resultType="qAndAAnswer">
+        select id, responder_id, response_time, content, reply_answer_id
+        from q_and_a_answer
+        where question_id = #{questionId}
+        order by response_time desc limit #{pageIndex}, 10
+    </select>
+
+    <select id="getUserIdByAnswerId" resultType="integer">
+        select responder_id
+        from q_and_a_answer
+        where id = #{answerId}
+    </select>
+
+    <delete id="delQuestionByQuestionId">
+        delete
+        from q_and_a_question
+        where id = #{questionId}
+    </delete>
+
+    <delete id="delAnswerByQuestionId">
+        delete
+        from q_and_a_answer
+        where question_id = #{questionId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.ChatMapper">
+
+    <insert id="addUserChat" parameterType="userChatList">
+        insert into user_chat_list(create_time, user_id, friend_id)
+        values (#{createTime}, #{userId}, #{friendId})
+    </insert>
+
+    <select id="getChatUserListById" resultType="userChatList">
+        select create_time, friend_id
+        from user_chat_list
+        where user_id = #{id}
+    </select>
+
+    <update id="setChatMsgReceivedByUserAndFriendId">
+        update user_chat_message
+        set receive_state = true
+        where sender_id in
+        <foreach collection="userChatLists" index="index" item="userChatList" separator="," open="(" close=")">
+            #{userChatList.friendId}
+        </foreach>
+        and receiver_id = #{myId}
+    </update>
+
+    <select id="getChatMessageById" resultType="userChatMessage">
+        select *
+        from (select content, send_time, sender_id, receiver_id
+              from user_chat_message
+              where (sender_id = #{friendId}
+                  and receiver_id = #{myId})
+                 or (receiver_id = #{friendId}
+                  and sender_id = #{myId})
+              order by send_time desc limit 0, 10) as desc_info
+        order by send_time asc
+    </select>
+
+    <select id="getNotReceiveChatMessageByUserId" resultType="userChatMessage">
+        select id, content, send_time, sender_id
+        from user_chat_message
+        where receive_state = false
+          and receiver_id = #{myId}
+        order by send_time
+    </select>
+
+    <update id="setChatMsgReceivedByMsgId">
+        update user_chat_message
+        set receive_state = true
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserFromChatUserListById">
+        delete
+        from user_chat_list
+        where user_id = #{myId}
+          and friend_id = #{friendId}
+    </delete>
+
+    <select id="getMoreChatContentByIdAndTime" resultType="userChatMessage">
+        select content, send_time, sender_id
+        from user_chat_message
+        where #{time} > send_time
+          and ((sender_id = #{friendId}
+            and receiver_id = #{myId})
+            or (receiver_id = #{friendId}
+                and sender_id = #{myId}))
+        order by send_time desc limit 10
+    </select>
+
+    <insert id="addUserChatMessage" parameterType="userChatMessage">
+        insert into user_chat_message(content, send_time, sender_id, receiver_id)
+        values (#{content}, #{sendTime}, #{senderId}, #{receiverId})
+    </insert>
+
+    <select id="getUserChatListIdByUserAndFriendId" resultType="integer">
+        select id
+        from user_chat_list
+        where user_id = #{myId}
+          and friend_id = #{friendId}
+    </select>
+
+    <update id="updateUserChatListCreateTimeByUserChatListId">
+        update user_chat_list
+        set create_time = #{currentTime}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChatMessageById">
+        delete
+        from user_chat_message
+        where (sender_id = #{friendId}
+            and receiver_id = #{myId})
+           or (receiver_id = #{friendId}
+            and sender_id = #{myId})
+    </delete>
+
+</mapper>

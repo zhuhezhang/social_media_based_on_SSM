@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.CasualWordMapper">
+
+    <insert id="addCasualWord" parameterType="casualWord" useGeneratedKeys="true" keyProperty="id">
+        insert into casual_word (user_id, publish_time, content, picture_or_video)
+        values (#{userId}, #{publishTime}, #{content}, #{pictureOrVideo})
+    </insert>
+
+    <select id="getUserAndFriendCasualWordNumByUserId" resultType="integer">
+        select count(*)
+        from casual_word
+        where user_id = #{userId}
+           or user_id in (select friend_id
+                          from user_friend
+                          where user_id = #{userId})
+    </select>
+
+    <select id="getUserAndFriendCasualWordsByUserId" resultType="casualWord">
+        select id, user_id, publish_time, content, picture_or_video
+        from casual_word
+        where user_id = #{userId}
+           or user_id in (select friend_id
+                          from user_friend
+                          where user_id = #{userId})
+        order by publish_time desc limit #{pageIndex}, 20
+    </select><!--limit第一个参数表示数据行的起始位置，从0开始；第二个参数表示起始位置往后的-->
+
+    <select id="getUserCasualWordNumByUserId" resultType="integer">
+        select count(*)
+        from casual_word
+        where user_id = #{userId}
+    </select>
+
+    <select id="getUserCasualWordsByUserId" resultType="casualWord">
+        select id, publish_time, content, picture_or_video
+        from casual_word
+        where user_id = #{userId}
+        order by publish_time desc limit #{pageIndex}, 20
+    </select>
+
+    <select id="checkIsLikeById" resultType="boolean">
+        select exists(
+                       select id
+                       from casual_word_like
+                       where like_user_id = #{userId}
+                         and casual_word_id = #{casualWordId})
+    </select>
+
+    <insert id="likeCasualWord" parameterType="casualWord">
+        insert into casual_word_like(casual_word_id, like_user_id, like_time)
+        values (#{casualWordId}, #{likeUserId}, #{likeTime})
+    </insert>
+
+    <select id="getCasualWordUserIdByCasualWordId" resultType="integer">
+        select user_id
+        from casual_word
+        where id = #{casualWordId}
+    </select>
+
+    <delete id="unlikeCasualWordById">
+        delete
+        from casual_word_like
+        where casual_word_id = #{casualWordId}
+          and like_user_id = #{likeUserId}
+    </delete>
+
+    <select id="getCasualWordIdByCommentId" resultType="integer">
+        select casual_word_id
+        from casual_word_comment
+        where id = #{commentId}
+    </select>
+
+    <insert id="addCasualWordComment" parameterType="casualWordComment" useGeneratedKeys="true" keyProperty="id">
+        insert into casual_word_comment(casual_word_id, commenter_id, comment_time, content, reply_comment_id)
+        values (#{casualWordId}, #{commenterId}, #{commentTime}, #{content}, #{replyCommentId})
+    </insert>
+
+    <select id="getCasualWordByCasualWordId" resultType="casualWord">
+        select user_id, publish_time, content, picture_or_video
+        from casual_word
+        where id = #{casualWordId}
+    </select>
+
+    <select id="getCommentsNumByCasualWordId" resultType="integer">
+        select count(*)
+        from casual_word_comment
+        where casual_word_id = #{casualWordId}
+    </select>
+
+    <select id="getCommentsByCasualWordId" resultType="casualWordComment">
+        select id, commenter_id, comment_time, content, reply_comment_id
+        from casual_word_comment
+        where casual_word_id = #{casualWordId}
+        order by comment_time desc limit #{pageIndex}, 10
+    </select>
+
+    <select id="getUserIdByCommentId" resultType="integer">
+        select commenter_id
+        from casual_word_comment
+        where id = #{commentId}
+    </select>
+
+    <select id="getImageOrVideoFileNameByCasualWordId" resultType="string">
+        select picture_or_video
+        from casual_word
+        where id = #{casualWordId}
+    </select>
+
+    <delete id="delCasualWordById">
+        delete
+        from casual_word
+        where id = #{casualWordId}
+    </delete>
+
+    <delete id="delCasualWordLikeById">
+        delete
+        from casual_word_like
+        where casual_word_id = #{casualWordId}
+    </delete>
+
+    <delete id="delCasualWordCommentById">
+        delete
+        from casual_word_comment
+        where casual_word_id = #{casualWordId}
+    </delete>
+
+    <select id="getCasualWordIdsByUserId" parameterType="integer" resultType="integer">
+        select id
+        from casual_word
+        where user_id = #{id}
+    </select>
+
+    <delete id="deleteCasualWordLikeById">
+        delete
+        from casual_word_like
+        where ((like_user_id = #{myId}
+        and casual_word_id in
+        <foreach collection="friendCasualWordIdList" index="index" item="casualWordId" separator="," open="(" close=")">
+            #{casualWordId}
+        </foreach>)
+        or (like_user_id = #{friendId}
+        and casual_word_id in
+        <foreach collection="myCasualWordIdList" index="index" item="casualWordId" separator="," open="(" close=")">
+            #{casualWordId}
+        </foreach>))
+    </delete>
+
+</mapper>

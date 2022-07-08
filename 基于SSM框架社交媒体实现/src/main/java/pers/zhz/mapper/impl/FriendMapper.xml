@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.FriendMapper">
+
+    <select id="getUserFriendByUserId" resultType="com.alibaba.fastjson.JSONObject">
+        select friend_id, friend_nickname
+        from user_friend
+        where user_id = #{userId}
+    </select>
+
+    <select id="getFriendNicknameById" resultType="string">
+        select friend_nickname
+        from user_friend
+        where friend_id = #{friendId}
+          and user_id = #{userId}
+    </select>
+
+    <insert id="addUserFriend" parameterType="userFriend">
+        insert into user_friend(friend_id, user_id, friend_nickname)
+        values (#{friendId}, #{userId}, #{friendNickname})
+    </insert>
+
+    <update id="modifyFriendNickname">
+        update user_friend
+        set friend_nickname = #{nickname}
+        where user_id = #{userId}
+          and friend_id = #{friendId}
+    </update>
+
+    <delete id="deleteFriend">
+        delete
+        from user_friend
+        where (user_id = #{userId}
+            and friend_id = #{friendId})
+           or (user_id = #{friendId}
+            and friend_id = #{userId})
+    </delete>
+
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zhz.mapper.NoLoginMapper">
+
+    <select id="isUsernameExist" resultType="boolean">
+        select exists(select id
+                      from user
+                      where username = #{username})
+    </select>
+
+    <select id="isEmailExist" resultType="boolean">
+        select exists(select id
+                      from user
+                      where email = #{email})
+    </select>
+
+    <insert id="userRegister">
+        insert into user(username, email, password, head_portrait, register_time)
+        values (#{username}, #{email}, #{password}, #{headPortrait}, #{registerTime})
+    </insert>
+
+    <select id="getUserIdByName" resultType="integer">
+        select id
+        from user
+        where username = #{username}
+    </select>
+
+    <insert id="insertRegisterOrModifyPwdInfo">
+        insert into confirm_register_and_forget_pwd(user_id, state, code, flag, new_password)
+        values (#{userId}, #{state}, #{code}, #{flag}, #{newPassword})
+    </insert>
+
+    <update id="setStateByCode">
+        update confirm_register_and_forget_pwd
+        set state = #{state}
+        where code = #{code}
+          and flag = #{flag}
+          and state = true
+    </update>
+
+    <update id="setStateById">
+        update user
+        set state = #{state}
+        where id = #{userId}
+    </update>
+
+    <select id="login" resultType="map">
+        select id, state
+        from user
+        where username = #{username}
+          and password = #{password}
+    </select>
+
+    <update id="setIsActiveById">
+        update user
+        set is_active=#{isActive}
+        where id = #{id}
+    </update>
+
+    <select id="getIdByEmail" resultType="integer">
+        select id
+        from user
+        where email = #{email}
+    </select>
+
+    <select id="getPwdByCode" resultType="string">
+        select new_password
+        from confirm_register_and_forget_pwd
+        where code = #{code}
+          and state = true
+    </select>
+
+    <update id="setPwdById">
+        update user
+        set password = #{password}
+        where id = #{id}
+    </update>
+
+</mapper>
