@@ -1,0 +1,144 @@
+html {
+    min-width: 1000px;
+    min-height: 600px;
+}
+
+.message {
+    width: 970px;
+    height: 500px;
+}
+
+.chatUserList {
+    width: 270px;
+    height: 500px;
+    background-color: #ecedee;
+}
+
+.chatUser {
+    border-radius: 5px;
+}
+
+.chatUser.active {
+    background-color: #0d6efd;
+    color: #fafffb
+}
+
+.chatUser img {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin: 10px 5px auto 5px;
+    object-fit: cover;
+}
+
+.chatUser .name {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    overflow: hidden;
+    width: 120px;
+    margin-top: 7px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatUser .time {
+    font-size: 14px;
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}
+
+.chatUser .preview {
+    font-size: 12px;
+    margin-bottom: 3px;
+    display: inline-block;
+    overflow: hidden;
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.currentChat {
+    width: 710px;
+    height: 500px;
+}
+
+.currentChatUser {
+    background-color: #ecedee;
+    margin-left: 5px;
+    height: 30px;
+}
+
+.currentChatUser button {
+    padding-right: 12px;
+}
+
+.contentsList {
+    width: 700px;
+    height: 366px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    background-color: #ecedee;
+}
+
+.bubble {
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    clear: both;
+    padding: 5px;
+    vertical-align: top;
+    border-radius: 5px;
+    margin: 4px 10px;
+}
+
+.bubble::before {
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 6px;
+    content: " ";
+    transform: rotate(29deg) skew(-35deg);
+}
+
+.myBubble {
+    float: right;
+    align-self: flex-end;
+    background-color: #0d6efd;
+    color: white;
+}
+
+.myBubble::before {
+    top: 12px;
+    right: -3px;
+    background-color: #0d6efd;
+}
+
+.friendBubble {
+    float: left;
+    align-self: flex-start;
+    background-color: white;
+}
+
+.friendBubble::before {
+    left: -3px;
+    top: 12px;
+    background-color: white;
+}
+
+.sendMessageArea {
+    width: 700px;
+    height: 100px;
+    margin-left: 5px;
+}
+
+.sendBtnArea {
+    margin-top: 5px;
+}
+
+.sendMessageBtn {
+    width: 60px;
+    height: 33px;
+    line-height: 0.5;
+}

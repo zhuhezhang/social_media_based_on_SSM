@@ -1,0 +1,45 @@
+html {
+    min-width: 701px;
+    min-height: 601px
+}
+
+.sidebar {
+    width: 120px;
+    height: 500px;
+    margin-right: 5px;
+    background-color: #ecedee
+}
+
+.myQAndA {
+    width: 550px;
+    height: 500px;
+    background-color: #ecedee
+}
+
+.aQuestion {
+    margin: 10px 5px 0;
+}
+
+.aQuestion .head {
+    margin-bottom: 5px;
+}
+
+.aQuestion .head img {
+    margin-right: 5px;
+}
+
+.aQuestion .mainContent > * {
+    margin-bottom: 5px;
+}
+
+.aQuestion .footer img {
+    margin-left: 10px;
+}
+
+.page-link {
+    border-radius: 0.25rem;
+}
+
+#pagination {
+    margin-top: 5px;
+}

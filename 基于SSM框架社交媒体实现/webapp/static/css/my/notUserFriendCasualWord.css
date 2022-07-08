@@ -1,0 +1,48 @@
+html {
+    min-width: 701px;
+    min-height: 601px
+}
+
+.sidebar {
+    width: 120px;
+    height: 500px;
+    margin-right: 5px;
+    background-color: #ecedee
+}
+
+.notUserFriendCasualWord {
+    width: 550px;
+    height: 500px;
+    background-color: #ecedee
+}
+
+.aCasualWord {
+    margin: 10px 5px 0;
+}
+
+.aCasualWord .head {
+    margin-bottom: 5px;
+}
+
+.aCasualWord .head img {
+    margin-right: 5px;
+}
+
+.aCasualWord .mainContent > * {
+    margin-bottom: 5px;
+}
+
+.aCasualWord .mainContent > img, .aCasualWord .mainContent > video {
+    height: 100%;
+    width: 100%;
+    max-height: 150px;
+    max-width: 250px;
+}
+
+.page-link {
+    border-radius: 0.25rem;
+}
+
+#casualWordPagination {
+    margin-top: 5px;
+}

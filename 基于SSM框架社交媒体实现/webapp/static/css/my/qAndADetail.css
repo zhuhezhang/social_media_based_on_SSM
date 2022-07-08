@@ -1,0 +1,55 @@
+.qAndADetail {
+    width: 550px;
+    height: 500px;
+    background-color: #ecedee
+}
+
+.qAndADetail .qAndAContent {
+    margin: 10px 5px 5px;
+}
+
+.qAndADetail .qAndAContent .head {
+    margin-bottom: 5px;
+}
+
+.qAndADetail .qAndAContent .head img {
+    margin-right: 5px;
+}
+
+.qAndADetail .qAndAContent .head .btn {
+    margin-right: 0;
+    margin-left: 5px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.3rem;
+    border-radius: 0.2rem;
+}
+
+.qAndADetail .qAndAContent .mainContent > * {
+    margin-bottom: 5px;
+}
+
+.qAndADetail .qAndAContent .footer img {
+    margin-left: 10px;
+}
+
+.qAndAAnswer .aQAndAAnswer {
+    margin: 5px;
+}
+
+.qAndAAnswer .aQAndAAnswer div img {
+    margin-right: 5px;
+}
+
+.responseAnswer {
+    color: #0d6efd;
+    text-decoration: underline;
+    margin-left: 3px;
+}
+
+#pagination {
+    margin-top: 5px;
+}
+
+.page-link {
+    border-radius: 0.25rem;
+}

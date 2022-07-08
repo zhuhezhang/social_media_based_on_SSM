@@ -1,0 +1,25 @@
+.modal div div .modal-body {
+    font-size: 1.1rem;
+    padding-top: 2.8rem;
+    text-align: center;
+}
+
+#publishCommentOrAnswerModal div div .modal-body {
+    padding: 1.4rem 0.6rem 0;
+}
+
+.modal div .modal-content, .modal .modal-dialog {
+    width: 350px;
+    height: 150px;
+}
+
+.modal div div .modal-footer {
+    padding: 0.3rem;
+    border-top: none;
+}
+
+#publishCommentOrAnswerModal div div .modal-footer .errorInfo {
+    margin-left: 3px;
+    margin-right: auto;
+    color: red
+}

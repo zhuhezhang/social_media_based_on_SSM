@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.myContainer {
+    width: 100%;
+    height: 601px;
+}
+
+main {
+    padding-top: 0.75rem;
+}

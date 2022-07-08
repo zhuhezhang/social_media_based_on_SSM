@@ -1,0 +1,118 @@
+html {
+    min-width: 701px;
+    min-height: 601px
+}
+
+.sidebar {
+    width: 120px;
+    height: 500px;
+    margin-right: 5px;
+    background-color: #ecedee
+}
+
+.userFriendProfile {
+    width: 550px;
+    height: 500px;
+    background-color: #ecedee
+}
+
+.row {
+    --bs-gutter-x: 0
+}
+
+form div {
+    margin-bottom: 5px
+}
+
+form div:nth-last-child(2) {
+    margin-bottom: 6px
+}
+
+form div:nth-child(1) {
+    margin-bottom: 25px
+}
+
+[for=username] {
+    width: 53px;
+    margin-right: 17px
+}
+
+#username {
+    width: 167px
+}
+
+[for=email] {
+    width: 35px;
+    margin-left: 15px;
+    margin-right: 5px
+}
+
+#email {
+    width: 232px
+}
+
+[for=phoneNumber] {
+    width: 70px
+}
+
+#phoneNumber {
+    width: 167px
+}
+
+#sex {
+    width: 35px;
+    margin-left: 15px;
+    margin-right: 5px
+}
+
+[for=man], [type=radio] {
+    width: 15px
+}
+
+[for=women] {
+    width: 15px;
+    margin-left: 5px
+}
+
+[for=birthday] {
+    width: 35px;
+    margin-right: 35px
+}
+
+#birthday {
+    width: 167px
+}
+
+[for=hometown] {
+    width: 35px;
+    margin-left: 15px;
+    margin-right: 5px
+}
+
+#hometown {
+    width: 232px
+}
+
+[for=introduce] {
+    width: 70px
+}
+
+#introduce {
+    width: 454px
+}
+
+[for=nickname] {
+    width: 70px;
+}
+
+#nickname {
+    width: 165px;
+}
+
+.userFriendProfileBtn {
+    width: 90px;
+    height: 38px;
+    font-size: 1rem;
+    margin-right: 5px;
+    line-height: 1
+}

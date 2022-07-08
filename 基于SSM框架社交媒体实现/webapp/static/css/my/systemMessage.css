@@ -1,0 +1,48 @@
+html {
+    min-width: 570px;
+    min-height: 600px;
+}
+
+.systemMessage {
+    width: 550px;
+    height: 500px;
+}
+
+.messages {
+    height: 455px;
+    margin-bottom: 5px;
+    background-color: #ecedee;
+}
+
+.message {
+    height: 40px;
+    margin: 5px 5px 0;
+}
+
+.message img {
+    margin-right: 3px;
+}
+
+.message div div .btn, .message .btn {
+    font-size: 0.75rem;
+    line-height: 1;
+    margin-left: 3px
+}
+
+.message .time {
+    margin-left: auto;
+    font-size: 0.8rem;
+}
+
+.message .btn {
+    margin-right: 0;
+}
+
+.pagination {
+    height: 40px;
+    background-color: #ecedee
+}
+
+.page-link {
+    border-radius: 0.25rem;
+}

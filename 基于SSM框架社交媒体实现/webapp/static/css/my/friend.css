@@ -1,0 +1,52 @@
+html {
+    min-width: 540px;
+    min-height: 601px;
+}
+
+.userListAndSearchArea {
+    width: 525px;
+    height: 500px;
+    margin-right: 5px;
+}
+
+.userList {
+    width: 260px;
+    height: 500px;
+    margin-right: 5px;
+    background-color: #ecedee;
+}
+
+.searchArea {
+    width: 260px;
+    height: 87px;
+    background-color: #ecedee;
+}
+
+#username {
+    margin-top: -20px;
+    width: 250px;
+    height: 37px;
+    margin-left: 5px;
+}
+
+#searchBtn {
+    height: 35px;
+    margin-left: 195px;
+    margin-top: 5px;
+    line-height: 0.8;
+    font-size: 1rem;
+}
+
+.friend {
+    margin: 5px 5px 0;
+}
+
+.friend img {
+    margin-left: 3px;
+}
+
+.friend button {
+    width: 210px;
+    height: 40px;
+    margin-left: 5px;
+}
