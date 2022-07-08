@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>系统消息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/3/13">
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/common/header.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+    <link href="../../static/css/my/common/default.css" rel="stylesheet">
+    <link href="../../static/css/my/systemMessage.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main class="w-100 d-flex justify-content-center align-items-center">
+        <div class="systemMessage">
+            <div class="messages overflow-auto">
+                <div th:each="message:${messages}" class="d-flex align-items-center message">
+                    <img th:src="${message.getString('headPortrait')}" class="rounded-circle" alt="" width="35"
+                         height="35">
+                    <div th:switch="${message.getString('messageType')}"><!--根据消息类型输出不同的样式-->
+                        <div th:case="0" class="d-flex align-items-center"><!--添加好友的-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>请求添加您为好友</span>
+                            <button onclick="responseAddFriend(this)" th:value="${message.getIntValue('messageId')}"
+                                    class="btn btn-primary agree btn-sm" type="button">同意
+                            </button>
+                            <button onclick="responseAddFriend(this)" th:value="${message.getIntValue('messageId')}"
+                                    class="btn btn-danger refuse btn-sm" type="button">拒绝
+                            </button>
+                        </div>
+                        <div th:case="1" class="d-flex align-items-center"><!--通过添加好友的-->
+                            <a th:href="${'/userFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>已通过您的添加好友请求</span>
+                        </div>
+                        <div th:case="2" class="d-flex align-items-center"><!--拒绝添加好友的-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>拒绝您的添加好友请求</span>
+                        </div>
+                        <div th:case="3" class="d-flex align-items-center"><!--删除好友的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>已将您移出好友列表</span>
+                        </div>
+                        <div th:case="4" class="d-flex align-items-center"><!--点赞随说的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>点赞了您的</span>
+                            <a th:href="'/casualWord/detail/' + ${message.getIntValue('casualWordId')}">随说</a>
+                        </div>
+                        <div th:case="5" class="d-flex align-items-center"><!--取消点赞随说的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>取消点赞了您的</span>
+                            <a th:href="'/casualWord/detail/' + ${message.getIntValue('casualWordId')}">随说</a>
+                        </div>
+                        <div th:case="6" class="d-flex align-items-center"><!--评论本人的随说的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>评论了您的</span>
+                            <a th:href="'/casualWord/detail/' + ${message.getIntValue('casualWordId')}">随说</a>
+                        </div>
+                        <div th:case="7" class="d-flex align-items-center"><!--回复本人评论的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>回复了您的</span>
+                            <a th:href="'/casualWord/detail/' + ${message.getIntValue('casualWordId')}">评论</a>
+                        </div>
+                        <div th:case="8" class="d-flex align-items-center"><!--回答本人问题的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>回答了您的</span>
+                            <a th:href="'/qAndA/detail/' + ${message.getIntValue('qAndAId')}">问题</a>
+                        </div>
+                        <div th:case="9" class="d-flex align-items-center"><!--回复本人回答问题的消息-->
+                            <a th:href="${'/notUserFriendProfile/' + message.getIntValue('senderId')}"
+                               th:text="${message.getString('name')}"></a>
+                            <span>回复了您的</span>
+                            <a th:href="'/qAndA/detail/' + ${message.getIntValue('qAndAId')}">回答</a>
+                        </div>
+                    </div>
+                    <span class="time" th:text="${message.getLongValue('time')}"></span>
+                    <button onclick="deleteSystemMsg(this)" th:value="${message.getIntValue('messageId')}"
+                            class="btn btn-close" type="button"></button>
+                </div>
+            </div>
+            <div id="systemMsgPagination"
+                 class="pagination pagination-sm d-flex justify-content-center align-items-center">
+                <input th:value="${totalPages}" id="totalPages" type="hidden"><!--总页数、当前页-->
+                <input th:value="${currentPage}" id="currentPage" type="hidden">
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal::noticeModal}"></div>
+
+<script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/plugins/jq-paginator/jq-paginator.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/common/formatTimeStamp.js"></script>
+<script src="../../static/js/my/systemMessage.js"></script>
+<script src="../../static/js/other/background.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="time" content="2022/1/18">
+    <meta name="description" content="登录界面">
+    <meta name="author" content="zhz">
+    <title>登录</title>
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/loginRegisterForgetPwd.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<main class="form-signin">
+    <form>
+        <img class="mb-4" src="../../static/img/login.svg" alt="" width="85" height="85">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="username" placeholder="用户名" required>
+            <label for="username">用户名</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" placeholder="密码" required>
+            <label for="password">密码</label>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me">记住我
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" onclick="login()" type="button">登录</button>
+        <div class="form-group m-b-90">
+            <p class="text-muted text-center">
+                <a href="/forgetPwd">忘记密码</a> |
+                <a href="/register">我要注册</a>
+            </p>
+        </div>
+    </form>
+</main>
+
+<!--模态框-->
+<div th:replace="~{common/modal::noticeModal}"></div>
+<!--<div id="modal"></div>-->
+
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/js/bootstrap/bootstrap.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/index.js"></script>
+<script src="../../static/js/other/background.js"></script>
+<!--<script>-->
+<!--    $("#modal").load("common/modal.html");-->
+<!--</script>-->
+</body>
+</html>

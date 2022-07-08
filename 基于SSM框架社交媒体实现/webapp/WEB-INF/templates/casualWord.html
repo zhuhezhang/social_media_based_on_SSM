@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>随说</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/3/19">
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+    <link href="../../static/css/my/casualWord.css" rel="stylesheet">
+    <link href="../../static/css/my/common/header.css" rel="stylesheet">
+    <link href="../../static/css/my/common/default.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main id="main" class="w-100 d-flex justify-content-center align-items-center">
+        <div class="casualWord d-flex">
+            <div class="contents overflow-auto"><!--展示好友随说界面-->
+                <div th:each="casualWord:${casualWords}" class="aCasualWord"><!--遍历输出-->
+                    <div class="head d-flex align-items-center">
+                        <img th:src="${casualWord.getString('headPortrait')}"
+                             th:onclick="'window.location.href = ' + '\'' + '/userFriendProfile/' + ${casualWord.getIntValue('publisherId')} + '\''"
+                             title="点击查看Ta的资料" class="rounded-circle" alt="" width="35" height="35">
+                        <span th:text="${casualWord.getString('name')}" title="点击查看Ta的资料"
+                              th:onclick="'window.location.href = ' + '\'' + '/userFriendProfile/' + ${casualWord.getIntValue('publisherId')} + '\''">
+                        </span>
+                        <span class="time" style="margin-left: auto" th:text="${casualWord.getLongValue('time')}">
+                        </span>
+                    </div>
+                    <div class="mainContent">
+                        <span th:text="${casualWord.getString('text')}" class="d-flex"></span>
+                        <img th:if="${casualWord.getString('image')} != null" th:src="${casualWord.getString('image')}"
+                             alt="">
+                        <video controls th:if="${casualWord.getString('video')} != null"
+                               th:src="${casualWord.getString('video')}" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="footer d-flex justify-content-end">
+                        <input type="hidden" th:value="${casualWord.getIntValue('casualWordId')}">
+                        <input type="hidden" value="0">
+                        <img th:if="!${casualWord.getBoolean('isLike')}" onclick="unlikeOrLike(this)" title="点赞" alt=""
+                             src="../../static/img/unlike.svg" height="20" width="20">
+                        <img th:if="${casualWord.getBoolean('isLike')}" onclick="unlikeOrLike(this)" title="取消点赞" alt=""
+                             src="../../static/img/like.svg" height="20" width="20">
+                        <img onclick="showCommentModal(this)" src="../../static/img/comment.svg" title="评论"
+                             alt="" height="20" width="20">
+                        <img onclick="moreInfoOfThisCasualWord(this)" src="../../static/img/loadMore.svg" title="查看详情"
+                             alt="" height="20" width="20">
+                    </div>
+                </div>
+                <div id="pagination" class="pagination pagination-sm d-flex justify-content-center align-items-center">
+                    <input th:value="${totalPages}" id="totalPages" type="hidden"><!--总页数、当前页、当前请求路径-->
+                    <input th:value="${currentPage}" id="currentPage" type="hidden">
+                    <input th:value="${currentPath}" id="currentPath" type="hidden">
+                </div>
+            </div>
+            <div class="publish"><!--发布随说界面-->
+                <label class="d-none" for="publishTextContent"></label>
+                <textarea class="form-control text-area" id="publishTextContent"></textarea>
+                <input type="file" accept=".png,.jpg,.mp4" id="getImgOrVideo" onchange="showImgOrVideo()"
+                       class="d-none">
+                <div class="d-flex justify-content-center showImgOrVideo">
+                    <img class="d-none" src="" alt="">
+                    <video class="d-none" src="" type="video/mp4" controls></video>
+                </div>
+                <div class="selectFileAndBtn d-flex">
+                    <img src="../../static/img/image.svg" onclick="$('#getImgOrVideo').click()" width="25"
+                         height="20" alt="" title="选择图片或视频">
+                    <button onclick="clearPublishContent()" class="btn btn-close btn-sm" title="清空内容"></button>
+                    <button onclick="publishCasualWord()" class="publishBtn btn btn-primary btn-sm">发布</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal::noticeModal}"></div>
+<div th:replace="~{common/modal::publishCommentOrAnswerModal}"></div>
+<script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/plugins/jq-paginator/jq-paginator.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/common/header.js"></script>
+<script src="../../static/js/my/common/formatTimeStamp.js"></script>
+<script src="../../static/js/my/common/casualWord.js"></script>
+<script src="../../static/js/my/common/publishCommentOrAnswerModal.js"></script>
+<script src="../../static/js/my/casualWord.js"></script>
+<script src="../../static/js/other/background.js"></script>
+<script src="../../static/js/my/common/pagination.js"></script>
+</body>
+</html>

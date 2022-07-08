@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的资料</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/3/11">
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/common/default.css" rel="stylesheet">
+    <link href="../../static/css/my/myProfile.css" rel="stylesheet">
+    <link href="../../static/css/my/common/header.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main id="main" class="w-100 d-flex justify-content-center align-items-center">
+        <div class="sidebar d-flex justify-content-center align-items-center">
+            <ul class="nav nav-pills flex-column text-center">
+                <li class="nav-item"><a class="nav-link active" href="">我的资料</a></li>
+                <li class="nav-item"><a class="nav-link" href="/myCasualWord">我的随说</a></li>
+                <li class="nav-item"><a class="nav-link" href="/myQAndA">我的问答</a></li>
+            </ul>
+        </div>
+        <div class="myProfile d-flex justify-content-center align-items-center">
+            <form>
+                <div class="d-flex justify-content-center">
+                    <img th:src="${user.getHeadPortrait()}" id="headPortrait" class="rounded-circle" alt="" width="85"
+                         height="85">
+                </div>
+                <div class="row align-items-center">
+                    <label for="username">用户名</label>
+                    <input th:value="${user.getUsername()}" disabled type="text" id="username" class="form-control">
+                    <label for="email">邮箱</label>
+                    <input th:value="${user.getEmail()}" disabled type="email" id="email" class="form-control">
+                </div>
+                <div class="row align-items-center">
+                    <label for="phoneNumber">手机号码</label>
+                    <input th:value="${user.getPhoneNumber()}" disabled type="tel" id="phoneNumber"
+                           class="form-control">
+                    <label id="sex">性别</label>
+                    <label for="man">男</label>
+                    <input disabled type="radio" id="man" name="sex" th:checked="${user.getSex()==true}" value="true">
+                    <label for="women">女</label>
+                    <input disabled type="radio" id="women" name="sex" th:checked="${user.getSex()==false}"
+                           value="false">
+                </div>
+                <div class="row align-items-center">
+                    <label for="birthday">生日</label>
+                    <input disabled type="date" th:value="${user.getBirthday()}" id="birthday" class="form-control">
+                    <label for="hometown">家乡</label>
+                    <input disabled type="text" id="hometown" th:value="${user.getHometown()}" class="form-control">
+                </div>
+                <div class="row align-items-center">
+                    <label for="introduce">简介</label>
+                    <input disabled type="text" id="introduce" th:value="${user.getIntroduce()}" class="form-control">
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal::noticeModal}"></div>
+<script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/other/background.js"></script>
+<script>
+    let birthday = $('#birthday')
+    if (birthday.val() === '') {
+        birthday.attr('value', '9999-12-31')
+    }
+</script>
+</body>
+</html>

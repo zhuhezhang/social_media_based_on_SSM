@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/3/2">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/modifyPwd.css" rel="stylesheet">
+    <link href="../../static/css/my/common/default.css" rel="stylesheet">
+    <link href="../../static/css/my/common/header.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main id="main" class="w-100 d-flex justify-content-center align-items-center">
+        <div class="sidebar d-flex justify-content-center align-items-center">
+            <ul class="nav nav-pills flex-column text-center">
+                <li class="nav-item"><a class="nav-link" href="/modifyProfile">修改资料</a></li>
+                <li class="nav-item"><a class="nav-link active" href="">修改密码</a></li>
+            </ul>
+        </div>
+        <div class="modifyPwd d-flex justify-content-center align-items-center">
+            <form>
+                <div class="d-flex justify-content-center">
+                    <img th:src="${headPortrait}" class="rounded-circle" alt="" width="85" height="85">
+                </div>
+                <div class="row align-items-center">
+                    <label for="password">新密码</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <div class="row align-items-center">
+                    <label for="confirmPwd">确认新密码</label>
+                    <input type="password" id="confirmPwd" class="form-control">
+                </div>
+                <div class="row justify-content-center">
+                    <button onclick="modifyPwd()" class="btn btn-primary" id="submitBtn" type="button">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal::noticeModal}"></div><!--模态框-->
+<script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/modifyPwd.js"></script>
+<script src="../../static/js/other/background.js"></script>
+</body>
+</html>

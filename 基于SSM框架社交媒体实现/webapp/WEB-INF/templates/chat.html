@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/3/31">
+    <title>消息</title>
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+    <link href="../../static/css/my/chat.css" rel="stylesheet">
+    <link href="../../static/css/my/common/header.css" rel="stylesheet">
+    <link href="../../static/css/my/common/default.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main id="main" class="w-100 d-flex justify-content-center align-items-center">
+        <input type="hidden" id="chatData" th:value="${chatData}">
+        <div class="message d-flex justify-content-center align-items-center">
+            <div class="chatUserList overflow-auto">
+            </div>
+            <div class="currentChat">
+                <div id="currentChatUser"
+                     class="currentChatUser d-flex justify-content-between align-items-center fs-5 fw-bold">
+                    <div style="width: 29px"></div>
+                    <span onclick="window.location.href='/userFriendProfile/' + currentChatUserId"
+                          title="查看好友资料"></span>
+                    <button onclick="removeUserFromChatList()" class="d-none btn-sm btn btn-close"></button>
+                </div>
+                <div class="contentsList overflow-auto" id="contentsList">
+                </div>
+                <div class="sendMessageArea text-center">
+                    <label class="d-none" for="content"></label>
+                    <textarea class="form-control text-area" id="content"></textarea>
+                    <div class="sendBtnArea text-end">
+                        <button onclick="sendChatMessage()" class="sendMessageBtn btn text-center btn-primary">发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal::noticeModal}"></div>
+<script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/js/my/common/header.js"></script>
+<script src="../../static/plugins/jq-paginator/jq-paginator.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/common/formatTimeStamp.js"></script>
+<script src="../../static/js/my/chat.js"></script>
+<script src="../../static/js/other/background.js"></script>
+</body>
+</html>

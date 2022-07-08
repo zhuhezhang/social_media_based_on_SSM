@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>问答详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="zhz">
+    <meta name="time" content="2022/4/18">
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/my/common/default.css" rel="stylesheet">
+    <link href="/static/css/my/qAndADetail.css" rel="stylesheet">
+    <link href="/static/css/my/common/header.css" rel="stylesheet">
+    <link href="/static/css/my/common/modal.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="myContainer">
+    <div th:replace="~{common/header}"></div>
+    <main id="main" class="w-100 d-flex justify-content-center align-items-center">
+        <div class="qAndADetail overflow-auto">
+            <div class="qAndAContent">
+                <div class="head d-flex align-items-center">
+                    <img th:src="${userHeadPortrait}" alt="" width="35" height="35" class="rounded-circle"
+                         th:onclick="'window.location.href = ' + '\'' + '/userFriendProfile/' + ${questionerId} + '\''"
+                         title="点击查看Ta的资料">
+                    <span th:text="${username}" title="点击查看Ta的资料"
+                          th:onclick="'window.location.href = ' + '\'' + '/userFriendProfile/' + ${questionerId} + '\''">
+                    </span>
+                    <span th:text="${time}" class="time" style="margin-left: auto"></span>
+                    <button th:if="${isMyQuestion}" th:value="${questionId}" onclick="showDeleteModal()"
+                            class="btn btn-danger btn-sm" id="deleteQuestionBtn">删除
+                    </button>
+                </div>
+                <div class="mainContent">
+                    <span th:text="${content}" class="d-flex"></span>
+                </div>
+                <div class="footer d-flex justify-content-end">
+                    <input type="hidden" th:value="${questionId}">
+                    <input type="hidden" value="1">
+                    <img onclick="showAnswerModal(this)" src="/static/img/answer.svg" title="回答问题" alt=""
+                         height="20" width="20">
+                </div>
+            </div>
+            <div style="background-color: white;height: 5px"></div><!--问题内容和问题回答的分割线-->
+            <div class="qAndAAnswer">
+                <div th:each="answer:${answers}" class="aQAndAAnswer">
+                    <div class="d-flex align-items-center">
+                        <input type="hidden" th:value="${answer.getIntValue('answerId')}">
+                        <input type="hidden" value="2">
+                        <img th:src="${answer.getString('headPortrait')}" class="rounded-circle" height="35"
+                             width="35px" alt="">
+                        <a th:href="'/userFriendProfile/' + ${answer.getIntValue('responderId')}"
+                           th:text="${answer.getString('responderName')}">
+                        </a>
+                        <span th:if="${answer.getBooleanValue('hasRespondent')}">回复</span>
+                        <a th:href="'/userFriendProfile/' + ${answer.getIntValue('respondentId')}"
+                           th:if="${answer.getBooleanValue('hasRespondent')}"
+                           th:text="${answer.getString('respondentName')}">
+                        </a>
+                        <span>：</span>
+                        <span th:text="${answer.getLongValue('time')}" class="time" style="margin-left: auto"></span>
+                        <span onclick="showAnswerModal(this)" class="responseAnswer">回复</span>
+                    </div>
+                    <span th:text="${answer.getString('content')}" class="d-block"></span>
+                </div>
+                <div id="pagination" class="pagination pagination-sm d-flex justify-content-center align-items-center">
+                    <input th:value="${totalPages}" id="totalPages" type="hidden"><!--总页数、当前页、当前请求路径-->
+                    <input th:value="${currentPage}" id="currentPage" type="hidden">
+                    <input th:value="${currentPath}" id="currentPath" type="hidden">
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{common/modal}"></div>
+<script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="/static/plugins/jq-paginator/jq-paginator.min.js"></script>
+<script src="/static/js/my/common/publishCommentOrAnswerModal.js"></script>
+<script src="/static/js/my/common/noticeModal.js"></script>
+<script src="/static/js/my/common/formatTimeStamp.js"></script>
+<script src="/static/js/my/common/qAndA.js"></script>
+<script src="/static/js/my/qAndADetail.js"></script>
+<script src="/static/js/other/background.js"></script>
+<script src="/static/js/my/common/pagination.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="time" content="2022/1/18">
+    <meta name="author" content="zhz">
+    <meta name="description" content="忘记密码界面">
+    <title>忘记密码</title>
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/my/loginRegisterForgetPwd.css" rel="stylesheet">
+    <link href="../../static/css/my/common/modal.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<main class="form-signin">
+    <form>
+        <img class="mb-4" src="../../static/img/resetPwd.svg" alt="" width="75" height="75">
+        <div class="form-floating">
+            <input type="email" class="form-control" id="email" placeholder="邮箱" required>
+            <label for="email">邮箱</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" placeholder="新密码" required>
+            <label for="password">新密码</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="confirmPassword" placeholder="确认新密码" required>
+            <label for="confirmPassword">确认新密码</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" onclick="forgetPwd()" type="button">确认</button>
+        <div class="form-group m-b-90">
+            <p class="text-muted text-center">
+                <a href="/register">我要注册</a> |
+                <a href="/">我要登录</a>
+            </p>
+        </div>
+    </form>
+</main>
+
+<!--模态框-->
+<div th:replace="~{common/modal::noticeModal}"></div>
+
+<script src="../../static/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="../../static/js/bootstrap/bootstrap.min.js"></script>
+<script src="../../static/js/my/common/noticeModal.js"></script>
+<script src="../../static/js/my/forgetPwd.js"></script>
+<script src="../../static/js/other/background.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!--头部公共页面-->
+<header class="container-fluid d-flex justify-content-between py-3">
+    <div style="width: 32px"></div>
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/chat" id="message" class="nav-link">消息</a></li>
+        <li class="nav-item"><a href="/friend" id="friend" class="nav-link">好友</a></li>
+        <li class="nav-item"><a href="/casualWord" id="casualWord" class="nav-link">随说</a></li>
+        <li class="nav-item"><a href="/qAndA" id="qAndA" class="nav-link">问答</a></li>
+    </ul>
+    <div class="dropdown">
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <img th:src="${headPortrait}" alt="" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
+            <li><a class="dropdown-item" href="/myProfile">个人中心</a></li>
+            <li><a class="dropdown-item" href="/systemMessage">系统通知</a></li>
+            <li><a class="dropdown-item" href="/modifyProfile">设置</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/logout">退出</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="divider"></div>

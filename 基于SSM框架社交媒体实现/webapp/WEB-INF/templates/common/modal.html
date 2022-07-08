@@ -1,0 +1,48 @@
+<!--通知模态框-->
+<div th:fragment="noticeModal" id="noticeModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered mx-auto">
+        <div class="modal-content">
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--确认删除好友、随说、问题模态框-->
+<div th:fragment="confirmDeleteModal" id="confirmDeleteModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered mx-auto">
+        <div class="modal-content">
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button onclick="deleteUserFriend();deleteCasualWord();deleteQuestion()" id="confirmDelete" data-bs-dismiss="modal"
+                        type="button" class="btn btn-primary">确认
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--发表随说的评论/问答的回答模态框-->
+<div th:fragment="publishCommentOrAnswerModal" id="publishCommentOrAnswerModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered mx-auto">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="commentOrAnswerContent" placeholder="评论/回答内容">
+                    <label for="commentOrAnswerContent">评论/回答内容</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="errorInfo"></span>
+                <button onclick="publishComment(this);answerQuestion(this)" id="confirmPublishCommentOrAnswer"
+                        type="button" class="btn btn-primary">确认
+                </button>
+                <input type="hidden" id="flag">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
